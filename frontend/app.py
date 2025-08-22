@@ -10,8 +10,8 @@ tweet_text = st.text_area("Enter your tweet:", height=100)
 if st.button("Analyze"):
     if tweet_text:
         try:
-            # Send request to backend
-            response = requests.post("http://backend:8000/analyze", json={"text": tweet_text})
+            # Send request to backend (use localhost for local testing)
+            response = requests.post("http://localhost:8000/analyze", json={"text": tweet_text})
             response.raise_for_status()  # Raise exception for bad status codes
             result = response.json()
             
