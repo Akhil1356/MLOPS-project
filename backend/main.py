@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from .models import Tweet
+from backend.models import Tweet
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -17,7 +17,7 @@ app.add_middleware(
 analyzer = SentimentIntensityAnalyzer()
 
 @app.post("/analyze")
-async def analyze_sentiment(tweet: Tweet):
+def analyze_sentiment(tweet: Tweet):
     scores = analyzer.polarity_scores(tweet.text)
     compound = scores["compound"]
     if compound >= 0.05:
