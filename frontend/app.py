@@ -1,5 +1,10 @@
+
+import os
 import streamlit as st
 import requests
+
+# Get backend URL from environment variable, default to localhost for local runs
+BACKEND_URL = os.getenv("BACKEND_URL", "http://localhost:8000")
 
 st.set_page_config(page_title="Tweet Sentiment Analysis", page_icon="💬", layout="centered")
 
@@ -28,13 +33,15 @@ st.write("Analyze the sentiment of any tweet instantly using AI-powered sentimen
 # Input box for tweet
 tweet_text = st.text_area("Enter your tweet:", height=100, max_chars=280, placeholder="What's happening?")
 
+
+
 # Button to trigger analysis
 if st.button("Analyze Sentiment"):
     if tweet_text:
         try:
-            # Send request to backend (use localhost for local testing)
-            response = requests.post("http://localhost:8000/analyze", json={"text": tweet_text})
-            response.raise_for_status()  # Raise exception for bad status codes
+           # Send request to backend
+            response = requests.post(f"{BACKEND_URL}/analyze", json={"text": tweet_text})
+            response.raise_for_status()
             result = response.json()
 
             sentiment_colors = {
