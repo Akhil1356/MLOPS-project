@@ -1,4 +1,3 @@
-
 import os
 import streamlit as st
 import requests
@@ -37,7 +36,7 @@ tweet_text = st.text_area("Enter your tweet:", height=100, max_chars=280, placeh
 
 # Button to trigger analysis
 if st.button("Analyze Sentiment"):
-    if tweet_text:
+    if tweet_text and tweet_text.strip():
         try:
            # Send request to backend
             response = requests.post(f"{BACKEND_URL}/analyze", json={"text": tweet_text})
