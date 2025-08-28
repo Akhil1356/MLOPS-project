@@ -50,17 +50,44 @@ if st.button("Analyze Sentiment"):
                 }
             sentiment = result["sentiment"]
             color = sentiment_colors.get(sentiment, "#f0f2f6")
+            scores = result["scores"]
 
             st.markdown(
-                    f"""
-                    <div class="sentiment-box" style="background-color: {color};">
-                        <strong>Tweet:</strong> {result['text']}<br>
-                        <strong>Sentiment:</strong> <span style="text-transform:capitalize;">{sentiment}</span><br>
-                        <strong>Scores:</strong> {result['scores']}
+                f"""
+                <div class="sentiment-box" style="background-color: {color};">
+                    <strong>Tweet:</strong> {tweet_text}<br>
+                    <strong>Overall Sentiment:</strong> <span style="text-transform:capitalize;">{sentiment}</span><br>
+                    <br>
+                    <div style="display: flex; align-items: center;">
+                        <strong style="margin-right: 0.5em;">Positive:</strong>
+                        <progress value="{scores['pos']}" max="1" style="width: 70%;"></progress>
+                        <span style="margin-left: 0.5em;">{scores['pos']:.2f}</span>
                     </div>
-                    """,
-                    unsafe_allow_html=True,
-                )
+                    <div style="display: flex; align-items: center;">
+                        <strong style="margin-right: 0.5em;">Neutral:</strong>
+                        <progress value="{scores['neu']}" max="1" style="width: 70%;"></progress>
+                        <span style="margin-left: 0.5em;">{scores['neu']:.2f}</span>
+                    </div>
+                    <div style="display: flex; align-items: center;">
+                        <strong style="margin-right: 0.5em;">Negative:</strong>
+                        <progress value="{scores['neg']}" max="1" style="width: 70%;"></progress>
+                        <span style="margin-left: 0.5em;">{scores['neg']:.2f}</span>
+                    </div>
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
+            
+            #st.markdown(
+            #        f"""
+            #        <div class="sentiment-box" style="background-color: {color};">
+            #            <strong>Tweet:</strong> {result['text']}<br>
+            #            <strong>Sentiment:</strong> <span style="text-transform:capitalize;">{sentiment}</span><br>
+            #            <strong>Scores:</strong> {result['scores']}
+            #        </div>
+            #        """,
+             #       unsafe_allow_html=True,
+             #   )
             
             # Display results
             #st.write(f"**Tweet**: {result['text']}")
